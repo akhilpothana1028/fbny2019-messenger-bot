@@ -1,4 +1,5 @@
 import { YOUTUBE_LIST } from "./static";
+import { users, User } from "./db";
 
 const getRandomHealthVideo = () => {
   const listLength = YOUTUBE_LIST.length;
@@ -6,8 +7,11 @@ const getRandomHealthVideo = () => {
   return YOUTUBE_LIST[randomNum];
 };
 
+const newUser = (user: User) => users.push(user);
+
 const helper = {
-  getRandomHealthVideo
+  getRandomHealthVideo,
+  newUser
 };
 
 export { helper };
