@@ -1,6 +1,12 @@
 "use strict";
 import { helper } from "./helper";
 
+// setting up endpoints
+const verificationController = require(‘./controllers/verification’);
+const messageWebhookController = require(‘./controllers/messageWebhook’);
+app.get(‘/’, verificationController);
+app.post(‘/’, messageWebhookController);
+
 // Imports dependencies and set up http server
 const express = require("express"),
   bodyParser = require("body-parser"),
