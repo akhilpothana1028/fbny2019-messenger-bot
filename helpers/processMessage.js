@@ -1,5 +1,7 @@
+// Client dialogflow access token
 const API_AI_TOKEN = ‘6c474f5dab5b42f989ec99ef32a5fe4e’;
 const apiAiClient = require(‘apiai’)(API_AI_TOKEN);
+// added facebook page access token
 const FACEBOOK_ACCESS_TOKEN = ‘EAAYTLtLE1bMBAFYZBXNCWMYbXuw5E8NTAmp7hHurLNNTdFHPZAG9J76nCPDPfARuTZAMYIbXv80xIPxzmDgc3leuaHpObDfco1O50iLn5ZBlJ3rsG83VsUeToceSOIhVzEUL6k3rVURZCyT92jCb8aiNsguWobuatYONS0OyIDcQ1hB2QnBk0yQJzwcWoz7QZD’;
 const request = require(‘request’);
 const sendTextMessage = (senderId, text) => {
