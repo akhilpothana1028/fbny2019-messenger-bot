@@ -5,14 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node built/index.js"
+    "tsc": "tsc",
+    "start": "tsc && node built/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apiai": "^4.0.3",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "dialogflow": "^0.12.1",
+    "express": "^4.17.1",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "@types/node": "^12.11.1",

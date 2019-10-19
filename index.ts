@@ -1,12 +1,7 @@
 "use strict";
-import { helper } from "./helper";
 import { api } from "./api";
 
 // setting up endpoints
-const verificationController = require(‘./controllers/verification’);
-const messageWebhookController = require(‘./controllers/messageWebhook’);
-app.get(‘/’, verificationController);
-app.post(‘/’, messageWebhookController);
 
 // Imports dependencies and set up http server
 const express = require("express"),
@@ -17,7 +12,7 @@ const express = require("express"),
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 
 // Creates the endpoint for our webhook
-app.post("/webhook", (req, res) => {
+app.post("/webhookold", (req, res) => {
   let body = req.body;
 
   // Checks this is an event from a page subscription
@@ -48,7 +43,7 @@ app.post("/webhook", (req, res) => {
 });
 
 // Adds support for GET requests to our webhook
-app.get("/webhook", (req, res) => {
+app.get("/webhookold", (req, res) => {
   // Your verify token. Should be a random string.
   let VERIFY_TOKEN = "fbny2019";
 
@@ -70,3 +65,9 @@ app.get("/webhook", (req, res) => {
     }
   }
 });
+
+const verificationController = require("./controllers/verification");
+const messageWebhookController = require("./controllers/messageWebhook");
+
+app.get("/webhook", verificationController);
+app.post("/webhook", messageWebhookController);

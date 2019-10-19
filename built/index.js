@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var api_1 = require("./api");
+// setting up endpoints
 // Imports dependencies and set up http server
 var express = require("express"), bodyParser = require("body-parser"), app = express().use(bodyParser.json()); // creates express http server
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, function () { return console.log("webhook is listening"); });
 // Creates the endpoint for our webhook
-app.post("/webhook", function (req, res) {
+app.post("/webhookold", function (req, res) {
     var body = req.body;
     // Checks this is an event from a page subscription
     if (body.object === "page") {
@@ -35,7 +36,7 @@ app.post("/webhook", function (req, res) {
     }
 });
 // Adds support for GET requests to our webhook
-app.get("/webhook", function (req, res) {
+app.get("/webhookold", function (req, res) {
     // Your verify token. Should be a random string.
     var VERIFY_TOKEN = "fbny2019";
     // Parse the query params
@@ -56,3 +57,7 @@ app.get("/webhook", function (req, res) {
         }
     }
 });
+var verificationController = require("./controllers/verification");
+var messageWebhookController = require("./controllers/messageWebhook");
+app.get("/webhook", verificationController);
+app.post("/webhook", messageWebhookController);

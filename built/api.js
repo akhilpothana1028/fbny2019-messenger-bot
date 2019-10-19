@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var constants_1 = require("./constants");
@@ -46,7 +46,7 @@ var HTTP = axios_1.default.create({
 });
 var sendMessage = function (_a) {
     var id = _a.id, text = _a.text;
-    return __awaiter(_this, void 0, void 0, function () {
+    return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_b) {
             return [2 /*return*/, HTTP.post("https://graph.facebook.com/v4.0/me/messages?access_token=" + constants_1.PAGE_ACCESS_TOKEN, JSON.stringify({
                     messaging_type: "UPDATE",
