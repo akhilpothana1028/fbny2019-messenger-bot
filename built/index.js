@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var helper_1 = require("./helper");
+var api_1 = require("./api");
 // Imports dependencies and set up http server
 var express = require("express"), bodyParser = require("body-parser"), app = express().use(bodyParser.json()); // creates express http server
 // Sets server port and logs message on success
@@ -10,15 +10,24 @@ app.post("/webhook", function (req, res) {
     var body = req.body;
     // Checks this is an event from a page subscription
     if (body.object === "page") {
+        console.log("body.entry: ", body.entry);
         // Iterates over each entry - there may be multiple if batched
         body.entry.forEach(function (entry) {
             // Gets the message. entry.messaging is an array, but
             // will only ever contain one message, so we get index 0
             var webhook_event = entry.messaging[0];
-            console.log(webhook_event);
+            // console.log(webhook_event);
+            var sender_id = webhook_event.sender ? webhook_event.sender.id : "";
+            var text = webhook_event.message ? webhook_event.message.text : "";
+            // console.log("text: ", !!text);
+            // Returns a '200 OK' response to all requests
+            res.status(200).send("EVENT_RECEIVED");
+            !!text &&
+                api_1.api
+                    .sendMessage({ id: sender_id, text: "Thank you for signing up" })
+                    .then(function (_) { return console.log("message sent"); })
+                    .catch(function (e) { return console.log("error: ", e); });
         });
-        // Returns a '200 OK' response to all requests
-        res.status(200).send("EVENT_RECEIVED");
     }
     else {
         // Returns a '404 Not Found' if event is not from a page subscription
@@ -47,4 +56,3 @@ app.get("/webhook", function (req, res) {
         }
     }
 });
-console.log("random video: ", helper_1.helper.getRandomHealthVideo());

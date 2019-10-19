@@ -1,5 +1,6 @@
 "use strict";
 import { helper } from "./helper";
+import { api } from "./api";
 
 // Imports dependencies and set up http server
 const express = require("express"),
@@ -15,16 +16,25 @@ app.post("/webhook", (req, res) => {
 
   // Checks this is an event from a page subscription
   if (body.object === "page") {
+    console.log("body.entry: ", body.entry);
     // Iterates over each entry - there may be multiple if batched
     body.entry.forEach(function(entry) {
       // Gets the message. entry.messaging is an array, but
       // will only ever contain one message, so we get index 0
       let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
-    });
+      // console.log(webhook_event);
+      const sender_id = webhook_event.sender ? webhook_event.sender.id : "";
+      const text = webhook_event.message ? webhook_event.message.text : "";
+      // console.log("text: ", !!text);
 
-    // Returns a '200 OK' response to all requests
-    res.status(200).send("EVENT_RECEIVED");
+      // Returns a '200 OK' response to all requests
+      res.status(200).send("EVENT_RECEIVED");
+      !!text &&
+        api
+          .sendMessage({ id: sender_id, text: "Thank you for signing up" })
+          .then(_ => console.log("message sent"))
+          .catch(e => console.log("error: ", e));
+    });
   } else {
     // Returns a '404 Not Found' if event is not from a page subscription
     res.sendStatus(404);
@@ -54,5 +64,3 @@ app.get("/webhook", (req, res) => {
     }
   }
 });
-
-console.log("random video: ", helper.getRandomHealthVideo());

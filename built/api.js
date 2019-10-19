@@ -48,26 +48,20 @@ var sendMessage = function (_a) {
     var id = _a.id, text = _a.text;
     return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_b) {
-            HTTP.post("https://graph.facebook.com/v4.0/me/messages?access_token=" + constants_1.PAGE_ACCESS_TOKEN, {
-                messaging_type: "UPDATE",
-                recepient: { id: id },
-                message: { text: text }
-            });
-            return [2 /*return*/];
+            return [2 /*return*/, HTTP.post("https://graph.facebook.com/v4.0/me/messages?access_token=" + constants_1.PAGE_ACCESS_TOKEN, JSON.stringify({
+                    messaging_type: "UPDATE",
+                    recipient: { id: id },
+                    message: { text: text }
+                }))];
         });
     });
 };
 var responseMessage = function (_a) {
     var id = _a.id, text = _a.text;
-    return __awaiter(_this, void 0, void 0, function () {
-        return __generator(this, function (_b) {
-            HTTP.post("https://graph.facebook.com/v4.0/me/messages?access_token=" + constants_1.PAGE_ACCESS_TOKEN, {
-                messaging_type: "RESPONSE",
-                recepient: { id: id },
-                message: { text: text }
-            });
-            return [2 /*return*/];
-        });
+    return HTTP.post("https://graph.facebook.com/v4.0/me/messages?access_token=" + constants_1.PAGE_ACCESS_TOKEN, {
+        messaging_type: "RESPONSE",
+        recepient: { id: id },
+        message: { text: text }
     });
 };
 var api = {

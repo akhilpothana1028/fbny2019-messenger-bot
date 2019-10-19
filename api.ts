@@ -8,18 +8,16 @@ const HTTP = axios.create({
   }
 });
 
-const sendMessage = async ({ id, text }) => {
+const sendMessage = async ({ id, text }) =>
   HTTP.post(
     `https://graph.facebook.com/v4.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`,
-    {
+    JSON.stringify({
       messaging_type: "UPDATE",
-      recepient: { id },
+      recipient: { id },
       message: { text }
-    }
+    })
   );
-};
-
-const responseMessage = async ({ id, text }) => {
+const responseMessage = ({ id, text }) =>
   HTTP.post(
     `https://graph.facebook.com/v4.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`,
     {
@@ -28,8 +26,6 @@ const responseMessage = async ({ id, text }) => {
       message: { text }
     }
   );
-};
-
 const api = {
   responseMessage,
   sendMessage
