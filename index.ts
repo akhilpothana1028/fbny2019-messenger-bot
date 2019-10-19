@@ -1,4 +1,5 @@
 "use strict";
+import { helper } from "./helper";
 
 // Imports dependencies and set up http server
 const express = require("express"),
@@ -53,3 +54,5 @@ app.get("/webhook", (req, res) => {
     }
   }
 });
+
+console.log("random video: ", helper.getRandomHealthVideo());

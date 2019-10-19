@@ -1,6 +1,7 @@
 import axios from "axios";
+import { PAGE_ACCESS_TOKEN } from "./constants";
 
-const HTTP = create({
+const HTTP = axios.create({
   // baseURL: API_URL,
   headers: {
     "Content-Type": "application/json"
